@@ -23,32 +23,21 @@ body:after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;bac
 #unlock{animation:unlockIn 1s ease both}@keyframes unlockIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
 .music-control{position:fixed;left:14px;bottom:14px;z-index:20;opacity:.7}.music-control button{border:1px solid #444;background:#0c0c0c;color:#ddd;border-radius:999px;padding:8px 12px;cursor:pointer;font-size:12px}
 
-/* TRUE PAGE-BY-PAGE STORY */
-html,body{height:100%;overflow:hidden}
-body{min-height:100vh}
-.story-page{
- position:absolute!important;inset:0;width:100%;height:100vh;min-height:100vh!important;
- overflow-y:auto;overflow-x:hidden;box-sizing:border-box;
- opacity:0;visibility:hidden;pointer-events:none;transform:translateX(18px);
- transition:opacity .45s ease,transform .45s ease,visibility .45s ease;
-}
-.story-page.is-active{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(0);z-index:5}
-.story-page.is-leaving{opacity:0;visibility:hidden;transform:translateX(-18px);z-index:4}
-.page-nav{display:flex;justify-content:center;gap:10px;padding:26px 20px 38px}
-.next-btn,.back-btn{
- appearance:none;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.035);
- color:#fff;border-radius:999px;padding:11px 22px;font:inherit;letter-spacing:.05em;
- cursor:pointer;transition:background .25s,border-color .25s,transform .25s
-}
-.next-btn:hover,.back-btn:hover{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.55);transform:translateY(-2px)}
-.page-dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:8px}
-.page-dot{width:6px;height:6px;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:transparent;padding:0;cursor:pointer}
-.page-dot.is-active{width:7px;height:7px;background:rgba(255,255,255,.7);border-color:rgba(255,255,255,.7)}
-
+/* Responsive one-screen page navigation */
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+.story-page{display:none!important;position:relative!important;box-sizing:border-box;width:100%;height:100dvh;min-height:100svh!important;max-height:100dvh;margin:0!important;overflow-x:hidden;overflow-y:auto}
+.story-page.is-active{display:block!important}
+.next-btn{appearance:none;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.035);color:#fff;border-radius:999px;padding:11px 22px;min-height:44px;font:inherit;letter-spacing:.05em;cursor:pointer}
+.next-btn:hover,.next-btn:focus-visible{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.55);outline:none}
+.page-nav{display:flex;justify-content:center;padding:20px 16px 30px}
+.page-dots{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.page-dot{width:6px;height:6px;border-radius:50%;border:1px solid rgba(255,255,255,.3)}
+.page-dot.is-active{background:rgba(255,255,255,.75)}
+@media(max-width:700px){.page-dots{display:none}.page-nav{padding-bottom:24px}}
 </style>
 </head>
 <body>
-<header id="page0" class="hero story-page is-active">
+<header class="hero story-page" id="page0">
   <div>
     <div class="eyebrow">a little universe made for</div>
     <h1 id="heroName">Niesa Almeeira Syahda</h1>
@@ -56,16 +45,14 @@ body{min-height:100vh}
     <div class="heart">♡</div>
     <p style="margin-top:35px">Some things are easier to say when you hide them inside a game.</p>
   </div>
-
-<div class="page-nav"><button class="next-btn" data-next="#chess">Next →</button></div>
-</header>
+<div class="page-nav"><button type="button" class="next-btn" data-next="#chess">Next →</button></div></header>
 
 <main>
-<section id="chess">
+<section id="chess" class="story-page">
 <div class="wrap">
   <div class="eyebrow">01 / THE KEY</div>
   <h2>A game before a letter.</h2>
-  <p class="lead">The letter is locked. There is only one way to open it: MAININ CATURNYA dan kamu harus menang ya almeeira semangat!</p>
+  <p class="lead">The letter is locked. There is only one way to open it: play chess. You are White. I made your opponent very, very bad at this.</p>
   <div class="chess-shell" style="margin-top:35px">
     <div>
       <div id="board" class="board" aria-label="Chess board"></div>
@@ -77,7 +64,7 @@ body{min-height:100vh}
     </div>
     <div class="card">
       <h3>How it works</h3>
-      <p>mainin catur aja kaya biasa kamu klik gausa kamu drag bidaknya</p>
+      <p>Play a normal chess game. Click a piece, then click its destination. The bot plays Black and intentionally makes weak legal moves.</p>
       <p>If you deliver <b>checkmate</b>, the key opens immediately.</p>
       <p>If you lose, nothing is revealed. Just start another game.</p>
       <div class="eyebrow" style="margin-top:25px">move history</div>
@@ -85,21 +72,17 @@ body{min-height:100vh}
     </div>
   </div>
 </div>
-
-<div class="page-nav"><button class="next-btn" data-next="#unlock">Next →</button></div>
-</section>
+<div class="page-nav"><button type="button" class="next-btn" data-next="#unlock">Next →</button></div></section>
 
 <section id="unlock" class="hidden story-page">
 <div class="wrap lock">
   <div class="eyebrow">THE KEY HAS TURNED</div>
   <div class="key">♔</div>
   <h2>Unlocked.</h2>
-  <p class="lead" style="margin:0 auto 25px">YEAYYY KAMU MENANGGGGGG SELAMATT!. Now open the thing that was waiting for you.</p>
+  <p class="lead" style="margin:0 auto 25px">You won. Now open the thing that was waiting for you.</p>
   <button class="btn" id="openLetter">Open the letter</button>
 </div>
-
-<div class="page-nav"><button class="next-btn" data-next="#letter">Next →</button></div>
-</section>
+<div class="page-nav"><button type="button" class="next-btn" data-next="#letter">Next →</button></div></section>
 
 <section id="letter" class="letter-section locked-letter story-page">
 <div class="wrap">
@@ -117,18 +100,16 @@ body{min-height:100vh}
   <div id="letterText" class="letter"></div>
   </div>
 </div>
-
-<div class="page-nav"><button class="next-btn" data-next="#timeline">Next →</button></div>
-</section>
+<div class="page-nav"><button type="button" class="next-btn" data-next="#timeline">Next →</button></div></section>
 
 <section>
 <div class="wrap">
   <div class="eyebrow">03 / HOW IT STARTED</div>
   <h2>A very short timeline.</h2>
   <div class="timeline">
-    <div class="event"><div class="num">01</div><div><h3>YANG SANGAT MALU UNTUK KITA SEBUTIN</h3><p>Let's keep that one between us HAHAHAHA, disana kita ketemu dengan sedikit membahas musik dan gunung yaw HAHAHAHA.</p></div></div>
-    <div class="event"><div class="num">02</div><div><h3>Chess?.</h3><p>disini kita main caturrrr YG JELAS AKU YANG MENANG TP LUCU YA LUCUNYA TU KEK YAUDAH SI PASTI AKU YANG MENANG GAUSA CAPE CAPE BGT HAHAHAHAHHA,tapi makasi ya gegara aku jago catur almeeira jadi sedikit punya rasa penasaran terhadapku yuhuuuuuu HAHAHAHAHA.</p></div></div>
-    <div class="event"><div class="num">03</div><div><h3>Semuanya jalan cepet setelah kita call.</h3><p>dari kita call semuanya beneran jalan cepet banget sampe ulang tahun akuu, sampe kita bertemu, dan sampe aku punya rasa sayang sama kamu semuanya bener bener jalan cepet bgt!!!!!.</p></div></div>
+    <div class="event"><div class="num">01</div><div><h3>YANG SANGAT MALU UNTUK KITA SEBUTIN</h3><p>Let's keep that one between us. Hehehe.</p></div></div>
+    <div class="event"><div class="num">02</div><div><h3>Chess.</h3><p>Then somehow, a chessboard became an excuse to keep talking.</p></div></div>
+    <div class="event"><div class="num">03</div><div><h3>Like water.</h3><p>After that, everything just flowed. Neither of us really knew where it would end up.</p></div></div>
   </div>
 </div>
 </section>
@@ -208,20 +189,20 @@ So don't be afraid of making plans just because some of them might fail.
 
 There will always be another square. Another route. Another opportunity.
 
-Tuhan juga selalu punya cara untuk ngasi jalan, waktu, dan kesempatan lain. Sometimes the answer is not "no"; sometimes it is simply "not this way."
+Tuhan juga selalu punya cara untuk memberikan jalan, waktu, dan kesempatan lain. Sometimes the answer is not "no"; sometimes it is simply "not this way."
 
-And maybe that's what your birthday should remind you of too: Tuhan masi kasi kamu perpanjangan waktu untuk buktiin.
+And maybe that's what your birthday should remind you of too: Tuhan masih memberimu extra time.
 
 More time to try.
 More time to get lost.
 More time to climb.
 More time to fall, rest, get up, and continue.
 
-Aku bukan cuma ingin liat hasilnya almeeira!.
+Aku bukan cuma orang yang ingin melihat hasil akhirnya.
 
-I want to see the process!.
+I want to see the process.
 
-Aku ingin liat kamu tumbuh. Liat kamu belajar. Liat kamu bangun lagi setelah jatuh. Liat kamu jalan pelan-pelan sampai akhirnya sadar, "Oh... ternyata aku si babi ini sudah sampai sejauh ini:)."
+Aku ingin melihat kamu tumbuh. Melihat kamu belajar. Melihat kamu bangun lagi setelah jatuh. Melihat kamu jalan pelan-pelan sampai akhirnya sadar, "Oh... ternyata aku sudah sejauh ini."
 
 Like climbing a mountain, you don't spend the whole journey staring at the summit. Sometimes you have to look at the next step. Then the next one. Then breathe.
 
@@ -248,9 +229,9 @@ Look at how much you still have ahead of you.
 And if one day you feel like you've fallen behind, remember: a mountain doesn't care how fast you climb. It only asks you to keep moving when you're ready.
 
 Happy birthday, my little Harley Quinn. ♡`,
- surprise:`Kalau nanti kamu cape dan lelahhh, kamu takkk usaaaah buru-buru anggep kamu gagal.
+ surprise:`Kalau nanti kamu capek, jangan buru-buru menganggap perjalananmu gagal.
 
-Istirahat juga bagian dari perjalanan sayangg!. Kamu gakk harus selalu lari untuk disebut sedang melaju.
+Istirahat juga bagian dari perjalanan. Kamu tidak harus selalu berlari untuk disebut sedang maju.
 
 Sometimes, simply getting up and taking one more step is already a victory.`
 };
@@ -520,29 +501,26 @@ document.getElementById("resetAdmin").onclick=()=>{if(confirm("Reset all editabl
 <script>
 (function(){
  const pages=[...document.querySelectorAll(".story-page")];
- let active=document.querySelector(".story-page.is-active")||pages[0];
+ if(!pages.length)return;
+ let active=pages.find(p=>p.id==="page0")||pages[0];
+ pages.forEach(p=>p.classList.remove("is-active")); active.classList.add("is-active");
+ const dots=document.createElement("div"); dots.className="page-dots";
+ pages.forEach((p,i)=>{const d=document.createElement("span");d.className="page-dot"+(i===0?" is-active":"");d.dataset.target=p.id;dots.appendChild(d)});
+ document.body.appendChild(dots);
+ function update(){dots.querySelectorAll(".page-dot").forEach(d=>d.classList.toggle("is-active",d.dataset.target===active.id))}
  function go(target){
-   if(!target || target===active) return;
-   if(target.id==="letter" && sessionStorage.getItem("almeeira_v3_won")!=="1") return;
-   active.classList.remove("is-active"); active.classList.add("is-leaving");
-   target.classList.remove("is-leaving"); target.classList.add("is-active");
-   active=target; target.scrollTop=0; updateDots();
-   setTimeout(()=>{ if(active!==target){} },500);
- }
- function updateDots(){
-   document.querySelectorAll(".page-dot").forEach(d=>d.classList.toggle("is-active",d.dataset.target==="#"+active.id));
+   if(!target)return;
+   if(target.id==="letter" && sessionStorage.getItem("almeeira_v3_won")!=="1")return;
+   pages.forEach(p=>p.classList.remove("is-active"));
+   target.classList.add("is-active"); target.scrollTop=0; active=target; update();
  }
  document.querySelectorAll(".next-btn").forEach(b=>b.addEventListener("click",()=>go(document.querySelector(b.dataset.next))));
- const dots=document.createElement("div"); dots.className="page-dots";
- pages.forEach((p,i)=>{const d=document.createElement("button");d.className="page-dot"+(i===0?" is-active":"");d.type="button";d.dataset.target="#"+p.id;d.setAttribute("aria-label","Page "+(i+1));d.onclick=()=>go(p);dots.appendChild(d)});
- document.body.appendChild(dots);
  document.addEventListener("keydown",e=>{
-   if(e.key==="ArrowRight"){let i=pages.indexOf(active);if(i<pages.length-1)go(pages[i+1])}
-   if(e.key==="ArrowLeft"){let i=pages.indexOf(active);if(i>0)go(pages[i-1])}
+   const i=pages.indexOf(active);
+   if(e.key==="ArrowRight"&&i<pages.length-1)go(pages[i+1]);
+   if(e.key==="ArrowLeft"&&i>0)go(pages[i-1]);
  });
- window.__almeeiraGoPage=go;
 })();
 </script>
-
 </body>
 </html>
